@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tertulias Literarias - Reserva tu Plaza</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold">📚 Tertulias Literarias</h1>
+                <a href="admin.html" class="bg-white text-purple-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition">
+                    <i class="fas fa-cog mr-2"></i>Admin
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <section class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">Únete a Nuestras Tertulias Literarias</h2>
+            <p class="text-xl text-gray-600 mb-8">Descubre nuevas perspectivas y conecta con otros amantes de la literatura</p>
+            
+            <!-- Info Cards -->
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-lg card-shadow">
+                    <i class="fas fa-users text-3xl text-blue-500 mb-4"></i>
+                    <h3 class="font-semibold text-gray-800">Máximo 12 participantes</h3>
+                </div>
+                <div class="bg-white p-6 rounded-lg card-shadow">
+                    <i class="fas fa-calendar text-3xl text-green-500 mb-4"></i>
+                    <h3 class="font-semibold text-gray-800">Frecuencia mensual</h3>
+                </div>
+                <div class="bg-white p-6 rounded-lg card-shadow">
+                    <i class="fas fa-comments text-3xl text-purple-500 mb-4"></i>
+                    <h3 class="font-semibold text-gray-800">Debate enriquecedor</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tertulia Available -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg card-shadow p-6 max-w-2xl mx-auto">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">Próxima Tertulia Disponible</h3>
+                <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-lg font-semibold text-gray-800">Plazas disponibles: <span class="text-green-600">11/12</span></span>
+                        <span class="text-sm text-gray-600">1 inscrito</span>
+                    </div>
+                    <p class="text-gray-700 mb-2"><strong>Fecha:</strong> Lunes, 15 de septiembre de 2025</p>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-blue-500 h-2 rounded-full" style="width: 8%"></div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">8% completado</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Registration Form -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg card-shadow p-8 max-w-2xl mx-auto">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Formulario de Inscripción</h3>
+                
+                <form id="inscriptionForm" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Seleccionar Tertulia</label>
+                        <select id="tertulia" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <option value="1">Tertulia del 15 de septiembre - 11 plazas disponibles</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Nombre Completo</label>
+                        <input type="text" id="nombre" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Teléfono</label>
+                        <input type="tel" id="telefono" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-lg hover:from-blue-600 hover:to-purple-700 transition duration-300 font-semibold">
+                        <i class="fas fa-paper-plane mr-2"></i>Enviar Inscripción
+                    </button>
+                </form>
+                
+                <div id="message" class="mt-4 p-4 rounded-lg hidden"></div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section class="mb-12">
+            <h3 class="text-3xl font-bold text-center text-gray-800 mb-8">¿Por qué participar?</h3>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <i class="fas fa-lightbulb text-4xl text-yellow-500 mb-4"></i>
+                    <h4 class="text-xl font-semibold text-gray-800 mb-2">Nuevas Perspectivas</h4>
+                    <p class="text-gray-600">Descubre interpretaciones únicas y enriquece tu comprensión literaria</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-heart text-4xl text-red-500 mb-4"></i>
+                    <h4 class="text-xl font-semibold text-gray-800 mb-2">Comunidad</h4>
+                    <p class="text-gray-600">Conecta con personas que comparten tu pasión por la literatura</p>
+                </div>
+                <div class="text-center">
+                    <i class="fas fa-seedling text-4xl text-green-500 mb-4"></i>
+                    <h4 class="text-xl font-semibold text-gray-800 mb-2">Crecimiento</h4>
+                    <p class="text-gray-600">Desarrolla tu pensamiento crítico y habilidades de comunicación</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 Tertulias Literarias. Todos los derechos reservados.</p>
+            <div class="mt-4">
+                <a href="#" class="text-gray-400 hover:text-white mx-2"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white mx-2"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white mx-2"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simulación de funcionalidad para GitHub Pages
+        document.getElementById('inscriptionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const messageDiv = document.getElementById('message');
+            messageDiv.className = 'mt-4 p-4 rounded-lg bg-green-100 border border-green-400 text-green-700';
+            messageDiv.textContent = '¡Inscripción enviada correctamente! (Demostración - en producción se conectaría con el backend)';
+            messageDiv.classList.remove('hidden');
+            
+            // Limpiar formulario
+            this.reset();
+            
+            // Ocultar mensaje después de 5 segundos
+            setTimeout(() => {
+                messageDiv.classList.add('hidden');
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
