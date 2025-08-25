@@ -11,7 +11,324 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
         .card-shadow {
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tertulias Literarias - Únete a Nuestros Encuentros</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-book-open text-2xl"></i>
+                <h1 class="text-xl font-bold">Tertulias Literarias</h1>
+            </div>
+            <button onclick="window.open('admin.html', '_blank')" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition-all duration-300">
+                <i class="fas fa-cog mr-2"></i>Admin
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Únete a Nuestras Tertulias Literarias</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Descubre nuevas perspectivas, comparte ideas y conecta con otros amantes de la literatura en nuestros encuentros mensuales.</p>
+            
+            <!-- Info Cards -->
+            <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+                <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
+                    <i class="fas fa-users text-3xl mb-4"></i>
+                    <h3 class="font-semibold mb-2">Máximo 12 participantes</h3>
+                    <p class="text-sm opacity-90">Grupos pequeños para debates más íntimos</p>
+                </div>
+                <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
+                    <i class="fas fa-calendar text-3xl mb-4"></i>
+                    <h3 class="font-semibold mb-2">Frecuencia mensual</h3>
+                    <p class="text-sm opacity-90">Un encuentro cada mes para mantener la continuidad</p>
+                </div>
+                <div class="bg-white bg-opacity-10 p-6 rounded-lg backdrop-blur-sm">
+                    <i class="fas fa-comments text-3xl mb-4"></i>
+                    <h3 class="font-semibold mb-2">Debate enriquecedor</h3>
+                    <p class="text-sm opacity-90">Intercambio de ideas y perspectivas diversas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tertulias Disponibles -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Próximas Tertulias</h2>
+            <div id="tertulias-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Las tertulias se cargarán dinámicamente -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulario de Inscripción -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 max-w-2xl">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Inscríbete Ahora</h2>
+            
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <form id="inscription-form" class="space-y-6">
+                    <div>
+                        <label for="tertulia" class="block text-sm font-medium text-purple-700 mb-2">
+                            <i class="fas fa-book mr-2"></i>Selecciona una Tertulia
+                        </label>
+                        <select id="tertulia" name="tertulia_id" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                            <option value="">Cargando tertulias...</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-blue-700 mb-2">
+                            <i class="fas fa-user mr-2"></i>Nombre Completo
+                        </label>
+                        <input type="text" id="name" name="name" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                               placeholder="Tu nombre completo">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-green-700 mb-2">
+                            <i class="fas fa-envelope mr-2"></i>Correo Electrónico
+                        </label>
+                        <input type="email" id="email" name="email" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                               placeholder="tu@email.com">
+                    </div>
+
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-orange-700 mb-2">
+                            <i class="fas fa-phone mr-2"></i>Teléfono (Opcional)
+                        </label>
+                        <input type="tel" id="phone" name="phone" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                               placeholder="+34 123 456 789">
+                    </div>
+
+                    <button type="submit" class="w-full gradient-bg text-white py-3 px-6 rounded-lg font-semibold hover:opacity-90 transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-paper-plane mr-2"></i>Enviar Inscripción
+                    </button>
+                </form>
+
+                <div id="success-message" class="hidden mt-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    <span id="success-text">¡Inscripción enviada correctamente! Recibirás un email de confirmación.</span>
+                </div>
+
+                <div id="error-message" class="hidden mt-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    <span id="error-text">Error al enviar la inscripción. Por favor, inténtalo de nuevo.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 Tertulias Literarias. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // URL del backend permanente
+        const API_BASE_URL = 'https://g8h3ilc1dwve.manus.space/api';
+        
+        // Variables globales
+        let tertulias = [];
+
+        // Función para cargar tertulias
+        async function loadTertulias() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/tertulias`);
+                if (!response.ok) throw new Error('Error al cargar tertulias');
+                
+                tertulias = await response.json();
+                displayTertulias();
+                populateTertuliasSelect();
+            } catch (error) {
+                console.error('Error:', error);
+                // Fallback con datos de ejemplo
+                tertulias = [{
+                    id: 1,
+                    title: "Tertulia Mensual - Literatura Contemporánea",
+                    description: "Encuentro mensual para discutir obras de literatura contemporánea",
+                    date: "2025-09-15",
+                    max_participants: 12,
+                    inscriptions_count: 0,
+                    available_spots: 12
+                }];
+                displayTertulias();
+                populateTertuliasSelect();
+            }
+        }
+
+        // Función para mostrar tertulias
+        function displayTertulias() {
+            const container = document.getElementById('tertulias-container');
+            container.innerHTML = '';
+
+            tertulias.forEach(tertulia => {
+                const percentage = ((tertulia.max_participants - tertulia.available_spots) / tertulia.max_participants) * 100;
+                const dateObj = new Date(tertulia.date + 'T00:00:00');
+                const formattedDate = dateObj.toLocaleDateString('es-ES', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-lg shadow-lg p-6 card-hover';
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">${tertulia.title}</h3>
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                            ${tertulia.available_spots} plazas disponibles
+                        </span>
+                    </div>
+                    
+                    <p class="text-gray-600 mb-4">${tertulia.description}</p>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-calendar mr-3 text-purple-600"></i>
+                            <span class="capitalize">${formattedDate}</span>
+                        </div>
+                        
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-users mr-3 text-blue-600"></i>
+                            <span>${tertulia.inscriptions_count}/${tertulia.max_participants} inscritos</span>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                <span>Progreso de inscripciones</span>
+                                <span>${Math.round(percentage)}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="progress-bar bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full" 
+                                     style="width: ${percentage}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Función para poblar el select de tertulias
+        function populateTertuliasSelect() {
+            const select = document.getElementById('tertulia');
+            select.innerHTML = '<option value="">Selecciona una tertulia</option>';
+
+            tertulias.forEach(tertulia => {
+                if (tertulia.available_spots > 0) {
+                    const option = document.createElement('option');
+                    option.value = tertulia.id;
+                    option.textContent = `${tertulia.title} - ${tertulia.available_spots} plazas disponibles`;
+                    select.appendChild(option);
+                }
+            });
+        }
+
+        // Función para enviar inscripción
+        async function submitInscription(formData) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/inscriptions`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Error al enviar inscripción');
+                }
+
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                console.error('Error:', error);
+                throw error;
+            }
+        }
+
+        // Manejar envío del formulario
+        document.getElementById('inscription-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = {
+                tertulia_id: parseInt(document.getElementById('tertulia').value),
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value
+            };
+
+            const submitButton = e.target.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            
+            try {
+                // Mostrar estado de carga
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Enviando...';
+                submitButton.disabled = true;
+
+                // Enviar inscripción
+                const result = await submitInscription(formData);
+
+                // Mostrar mensaje de éxito
+                document.getElementById('success-message').classList.remove('hidden');
+                document.getElementById('error-message').classList.add('hidden');
+                
+                // Limpiar formulario
+                e.target.reset();
+                
+                // Recargar tertulias para actualizar disponibilidad
+                await loadTertulias();
+
+            } catch (error) {
+                // Mostrar mensaje de error
+                document.getElementById('error-text').textContent = error.message;
+                document.getElementById('error-message').classList.remove('hidden');
+                document.getElementById('success-message').classList.add('hidden');
+            } finally {
+                // Restaurar botón
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            }
+        });
+
+        // Cargar tertulias al cargar la página
+        document.addEventListener('DOMContentLoaded', loadTertulias);
+    </script>
+</body>
+</html>
         }
     </style>
 </head>
