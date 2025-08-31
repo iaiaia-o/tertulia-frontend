@@ -1,370 +1,150 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración - Tertulias Literarias</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        .card-shadow {
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        .loading-spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #3498db;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
-</head>
-<body class="bg-gray-50">
-    <!-- Login Screen -->
-    <div id="login-screen" class="min-h-screen flex items-center justify-center gradient-bg">
-        <div class="bg-white rounded-lg card-shadow p-8 w-full max-w-md">
-            <div class="text-center mb-8">
-                <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-shield-alt text-white text-2xl"></i>
+    <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Panel de Administración - Tertulias Literarias</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+        <style>
+                    .gradient-bg {
+                                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    }
+                    .card-shadow {
+                                    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+                    }
+                    .loading-spinner {
+                                    border: 3px solid #f3f3f3;
+                                    border-top: 3px solid #3498db;
+                                    border-radius: 50%;
+                                    width: 20px;
+                                    height: 20px;
+                                    animation: spin 1s linear infinite;
+                    }
+                    @keyframes spin {
+                                    0% { transform: rotate(0deg); }
+                                    100% { transform: rotate(360deg); }
+                    }
+                </style>
+    </head>
+    <body class="bg-gray-50">
+
+        <!-- Login Screen -->
+        <div id="login-screen" class="min-h-screen flex items-center justify-center gradient-bg">
+                <div class="bg-white rounded-lg card-shadow p-8 w-full max-w-md">
+                            <div class="text-center mb-8">
+                                            <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                                                                <i class="fas fa-shield-alt text-white text-2xl"></i>i>
+                                            </div>div>
+                                            <h1 class="text-2xl font-bold text-gray-800">Panel de Administración</h1>h1>
+                                            <p class="text-gray-600 mt-2">Acceso restringido para administradores</p>p>
+                            </div>div>
+
+                            <form id="login-form" class="space-y-6">
+                                            <div id="login-message" class="hidden p-3 rounded-lg"></div>div>
+
+                                            <div>
+                                                                <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">
+                                                                                        <i class="fas fa-lock mr-2"></i>i>Contraseña
+                                                                </label>label>
+                                                                <input type="password" id="password" name="password" required
+                                                                                           placeholder="Ingresa la contraseña de administrador"
+                                                                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                                            </div>
+
+                                            <button type="submit" id="login-btn"
+                                                                    class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300">
+                                                                <span id="login-text">
+                                                                                        <i class="fas fa-sign-in-alt mr-2"></i>i>Iniciar Sesión
+                                                                </span>span>
+                                                                <span id="login-loading" class="hidden">
+                                                                                        <div class="loading-spinner inline-block mr-2"></div>Verificando...
+                                                                </span>span>
+                                            </button>button>
+                            </form>form>
+
+                            <div class="mt-6 text-center">
+                                            <a href="/" class="text-purple-600 hover:text-purple-700 text-sm">
+                                                                <i class="fas fa-arrow-left mr-2"></i>i>Volver al sitio público
+                                            </a>a>
+                            </div>
                 </div>
-                <h1 class="text-2xl font-bold text-gray-800">Panel de Administración</h1>
-                <p class="text-gray-600 mt-2">Acceso restringido para administradores</p>
-            </div>
-            
-            <form id="login-form" class="space-y-6">
-                <div id="login-message" class="hidden p-3 rounded-lg"></div>
-                
-                <div>
-                    <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">
-                        <i class="fas fa-lock mr-2"></i>Contraseña
-                    </label>
-                    <input type="password" id="password" name="password" required 
-                           placeholder="Ingresa la contraseña de administrador"
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-                </div>
-                
-                <button type="submit" id="login-btn" 
-                        class="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300">
-                    <span id="login-text">
-                        <i class="fas fa-sign-in-alt mr-2"></i>Iniciar Sesión
-                    </span>
-                    <span id="login-loading" class="hidden">
-                        <div class="loading-spinner inline-block mr-2"></div>Verificando...
-                    </span>
-                </button>
-            </form>
-            
-            <div class="mt-6 text-center">
-                <a href="index.html" class="text-purple-600 hover:text-purple-800 transition-colors">
-                    <i class="fas fa-arrow-left mr-2"></i>Volver al sitio público
-                </a>
-            </div>
         </div>
-    </div>
 
-    <!-- Admin Dashboard -->
-    <div id="admin-dashboard" class="hidden">
-        <!-- Header -->
-        <header class="bg-white shadow-lg border-b">
-            <div class="container mx-auto px-4 py-4">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center">
-                            <i class="fas fa-cog text-white"></i>
-                        </div>
-                        <div>
-                            <h1 class="text-xl font-bold text-gray-800">Panel de Administración</h1>
-                            <p class="text-gray-600 text-sm">Gestión de Tertulias Literarias</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <button id="refresh-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
-                            <i class="fas fa-sync-alt mr-2"></i>Actualizar
-                        </button>
-                        <button id="logout-btn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors">
-                            <i class="fas fa-sign-out-alt mr-2"></i>Cerrar Sesión
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <!-- Admin Dashboard -->
+        <div id="admin-dashboard" class="hidden min-h-screen bg-gray-50">
+                <!-- Header -->
+                <header class="bg-white shadow-sm border-b">
+                            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                            <div class="flex justify-between items-center py-4">
+                                                                <div class="flex items-center">
+                                                                                        <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center mr-3">
+                                                                                                                    <i class="fas fa-shield-alt text-white"></i>i>
+                                                                                            </div>
+                                                                                        <div>
+                                                                                                                    <h1 class="text-xl font-bold text-gray-900">Panel de Administración</h1>h1>
+                                                                                                                    <p class="text-sm text-gray-600">Gestión de Tertulias Literarias</p>p>
+                                                                                            </div>
+                                                                </div>
+                                                                <div class="flex items-center space-x-3">
+                                                                                        <button id="refresh-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                                                                                                                    <i class="fas fa-sync-alt mr-2"></i>i>Actualizar
+                                                                                            </button>button>
+                                                                                        <button id="logout-btn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors">
+                                                                                                                    <i class="fas fa-sign-out-alt mr-2"></i>i>Cerrar Sesión
+                                                                                            </button>button>
+                                                                </div>
+                                            </div>
+                            </div>
+                </header>header>
 
-        <!-- Main Content -->
-        <main class="container mx-auto px-4 py-8">
-            <!-- Estadísticas -->
-            <section class="mb-8">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Estadísticas Generales</h2>
-                <div id="stats-container" class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    <!-- Las estadísticas se cargarán dinámicamente -->
-                </div>
-            </section>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                            <!-- Estadísticas Generales -->
+                            <div class="mb-8">
+                                            <h2 class="text-2xl font-bold text-gray-900 mb-6">Estadísticas Generales</h2>h2>
+                                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                                                <div class="bg-white rounded-lg card-shadow p-6">
+                                                                                        <div class="flex items-center">
+                                                                                                                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                                                                                                                                    <i class="fas fa-users text-blue-600 text-xl"></i>i>
+                                                                                                                        </div>
+                                                                                                                    <div>
+                                                                                                                                                    <p class="text-sm font-medium text-gray-600">Total Inscripciones</p>p>
+                                                                                                                                                    <p id="total-inscriptions" class="text-2xl font-bold text-gray-900">0</p>p>
+                                                                                                                        </div>
+                                                                                            </div>
+                                                                </div>
 
-            <!-- Tabla de Inscripciones -->
-            <section>
-                <div class="bg-white rounded-lg card-shadow">
-                    <div class="p-6 border-b border-gray-200">
-                        <h3 class="text-xl font-bold text-gray-800">Inscripciones</h3>
-                        <p class="text-gray-600 text-sm mt-1">Gestiona el estado de las inscripciones</p>
-                    </div>
-                    
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Participante</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tertulia</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody id="inscriptions-table-body" class="bg-white divide-y divide-gray-200">
-                                <!-- Las inscripciones se cargarán dinámicamente -->
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <div id="no-inscriptions" class="hidden p-8 text-center">
-                        <i class="fas fa-inbox text-gray-400 text-4xl mb-4"></i>
-                        <p class="text-gray-600 font-medium">No hay inscripciones que mostrar</p>
-                        <p class="text-gray-500 text-sm">Las inscripciones aparecerán aquí cuando los usuarios se registren</p>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
+                                                                <div class="bg-white rounded-lg card-shadow p-6">
+                                                                                        <div class="flex items-center">
+                                                                                                                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                                                                                                                                                    <i class="fas fa-check-circle text-green-600 text-xl"></i>i>
+                                                                                                                        </div>
+                                                                                                                    <div>
+                                                                                                                                                    <p class="text-sm font-medium text-gray-600">Confirmadas</p>p>
+                                                                                                                                                    <p id="confirmed-inscriptions" class="text-2xl font-bold text-gray-900">0</p>p>
+                                                                                                                        </div>
+                                                                                            </div>
+                                                                </div>
 
-    <script>
-        // URL del backend permanente
-        const API_BASE_URL = 'https://g8h3ilc1dwve.manus.space/api';
-        
-        // Variables globales
-        let isLoggedIn = false;
-        let inscriptions = [];
-        let stats = {};
+                                                                <div class="bg-white rounded-lg card-shadow p-6">
+                                                                                        <div class="flex items-center">
+                                                                                                                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                                                                                                                                                    <i class="fas fa-book text-purple-600 text-xl"></i>i>
+                                                                                                                        </div>
+                                                                                                                    <div>
+                                                                                                                                                    <p class="text-sm font-medium text-gray-600">Total Tertulias</p>p>
+                                                                                                                                                    <p id="total-tertulias" class="text-2xl font-bold text-gray-900">0</p>p>
+                                                                                                                        </div>
+                                                                                            </div>
+                                                                </div>
 
-        // Función de login
-        document.getElementById('login-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const password = document.getElementById('password').value;
-            const loginBtn = document.getElementById('login-btn');
-            const loginText = document.getElementById('login-text');
-            const loginLoading = document.getElementById('login-loading');
-            const loginMessage = document.getElementById('login-message');
-            
-            // Mostrar estado de carga
-            loginText.classList.add('hidden');
-            loginLoading.classList.remove('hidden');
-            loginBtn.disabled = true;
-            
-            try {
-                // Verificar contraseña (simple verificación del lado cliente)
-                if (password === 'admin123') {
-                    isLoggedIn = true;
-                    document.getElementById('login-screen').classList.add('hidden');
-                    document.getElementById('admin-dashboard').classList.remove('hidden');
-                    await loadDashboardData();
-                } else {
-                    throw new Error('Contraseña incorrecta');
-                }
-            } catch (error) {
-                loginMessage.textContent = error.message;
-                loginMessage.className = 'p-3 rounded-lg bg-red-100 text-red-700 border border-red-200';
-                loginMessage.classList.remove('hidden');
-            } finally {
-                loginText.classList.remove('hidden');
-                loginLoading.classList.add('hidden');
-                loginBtn.disabled = false;
-            }
-        });
-
-        // Función de logout
-        document.getElementById('logout-btn').addEventListener('click', function() {
-            isLoggedIn = false;
-            document.getElementById('admin-dashboard').classList.add('hidden');
-            document.getElementById('login-screen').classList.remove('hidden');
-            document.getElementById('password').value = '';
-            document.getElementById('login-message').classList.add('hidden');
-        });
-
-        // Función para cargar datos del dashboard
-        async function loadDashboardData() {
-            try {
-                await Promise.all([
-                    loadStats(),
-                    loadInscriptions()
-                ]);
-            } catch (error) {
-                console.error('Error cargando datos:', error);
-            }
-        }
-
-        // Función para cargar estadísticas
-        async function loadStats() {
-            try {
-                const response = await fetch(`${API_BASE_URL}/admin/stats`);
-                if (!response.ok) throw new Error('Error al cargar estadísticas');
-                
-                stats = await response.json();
-                displayStats();
-            } catch (error) {
-                console.error('Error:', error);
-                // Mostrar estadísticas de ejemplo en caso de error
-                stats = {
-                    total_inscriptions: 0,
-                    total_tertulias: 1,
-                    confirmed_inscriptions: 0,
-                    available_spots: 12
-                };
-                displayStats();
-            }
-        }
-
-        // Función para mostrar estadísticas
-        function displayStats() {
-            const container = document.getElementById('stats-container');
-            container.innerHTML = `
-                <div class="bg-white rounded-lg card-shadow p-6">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-full bg-blue-100 text-blue-600">
-                            <i class="fas fa-users text-xl"></i>
-                        </div>
-                        <div class="ml-4">
-                            <p class="text-sm font-medium text-gray-600">Total Inscripciones</p>
-                            <p class="text-2xl font-bold text-gray-900">${stats.total_inscriptions || 0}</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-lg card-shadow p-6">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-full bg-green-100 text-green-600">
-                            <i class="fas fa-check-circle text-xl"></i>
-                        </div>
-                        <div class="ml-4">
-                            <p class="text-sm font-medium text-gray-600">Confirmadas</p>
-                            <p class="text-2xl font-bold text-gray-900">${stats.confirmed_inscriptions || 0}</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-lg card-shadow p-6">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-full bg-purple-100 text-purple-600">
-                            <i class="fas fa-book text-xl"></i>
-                        </div>
-                        <div class="ml-4">
-                            <p class="text-sm font-medium text-gray-600">Total Tertulias</p>
-                            <p class="text-2xl font-bold text-gray-900">${stats.total_tertulias || 1}</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-lg card-shadow p-6">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-full bg-orange-100 text-orange-600">
-                            <i class="fas fa-chair text-xl"></i>
-                        </div>
-                        <div class="ml-4">
-                            <p class="text-sm font-medium text-gray-600">Plazas Disponibles</p>
-                            <p class="text-2xl font-bold text-gray-900">${stats.available_spots || 12}</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Función para cargar inscripciones
-        async function loadInscriptions() {
-            try {
-                const response = await fetch(`${API_BASE_URL}/admin/inscriptions`);
-                if (!response.ok) throw new Error('Error al cargar inscripciones');
-                
-                inscriptions = await response.json();
-                displayInscriptions();
-            } catch (error) {
-                console.error('Error:', error);
-                // Mostrar mensaje de no hay inscripciones
-                document.getElementById('inscriptions-table-body').innerHTML = '';
-                document.getElementById('no-inscriptions').classList.remove('hidden');
-            }
-        }
-
-        // Función para mostrar inscripciones
-        function displayInscriptions() {
-            const tbody = document.getElementById('inscriptions-table-body');
-            const noInscriptions = document.getElementById('no-inscriptions');
-            
-            if (!inscriptions || inscriptions.length === 0) {
-                tbody.innerHTML = '';
-                noInscriptions.classList.remove('hidden');
-                return;
-            }
-            
-            noInscriptions.classList.add('hidden');
-            
-            tbody.innerHTML = inscriptions.map(inscription => {
-                const date = new Date(inscription.created_at).toLocaleDateString('es-ES');
-                const statusClass = inscription.status === 'confirmed' ? 'bg-green-100 text-green-800' : 
-                                  inscription.status === 'rejected' ? 'bg-red-100 text-red-800' : 
-                                  'bg-yellow-100 text-yellow-800';
-                const statusText = inscription.status === 'confirmed' ? 'Confirmada' : 
-                                 inscription.status === 'rejected' ? 'Rechazada' : 
-                                 'Pendiente';
-                
-                return `
-                    <tr class="hover:bg-gray-50">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-medium text-gray-900">${inscription.name}</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">${inscription.email}</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">${inscription.tertulia_title || 'Tertulia Mensual'}</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-900">${date}</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">
-                                ${statusText}
-                            </span>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        // Función de actualizar
-        document.getElementById('refresh-btn').addEventListener('click', async function() {
-            const btn = this;
-            const icon = btn.querySelector('i');
-            
-            icon.classList.add('fa-spin');
-            btn.disabled = true;
-            
-            try {
-                await loadDashboardData();
-            } finally {
-                icon.classList.remove('fa-spin');
-                btn.disabled = false;
-            }
-        });
-
-        // Cargar datos iniciales si ya está logueado
-        if (isLoggedIn) {
-            loadDashboardData();
-        }
-    </script>
-</body>
-  </html>
+                                                                <div class="bg-white rounded-lg card-shadow p-6">
+                                                                                        <div class="flex items-center">
+                                                                                                                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                                                                                                                                                    <i class="fas fa-chair text-orange-600 text-xl"></i>i>
+                                                                                                                                   
+                                                                                        </div>
+                                            </div>
+        </style></title>
+    </head>
